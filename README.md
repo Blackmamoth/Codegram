@@ -8,11 +8,11 @@
 
 1. Create and activate a virtual environment in the repository through commandline using the command
 
-if on mac/linux
+if on mac/linux\
 `$ python3 -m venv venv`\
 `$ source venv/bin/activate`
 
-if on windows:
+if on windows:\
 `python -m venv venv`\
 `venv\Scripts\activate`
 
