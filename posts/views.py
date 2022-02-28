@@ -31,7 +31,7 @@ def post(request, id):
             form = CommentForm(request.POST)
             if form.is_valid():
                 comment_text = form.cleaned_data.get('comment')
-                comment = Comment(user_id=request.user, post_id=post, comment=comment_text)
+                comment = Comment(user=request.user, post=post, comment=comment_text)
                 comment.save()
                 post.comments.add(comment)
                 return redirect('post', id)
