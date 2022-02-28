@@ -9,11 +9,37 @@
       <h5 class="card-title">Title: {{post.title}}</h5>
       <p class="card-text" style="white-space: pre">Code: {{post.code}}</p>
       <p class="card-text">Programmer: {{post.programmer}}</p>
+      <p class="card-text">Comments: {{post.comments.count}}</p>
     </div>
     {% if request.user == post.programmer %}
       <span><a href="{% url 'update_post' post.id %}" class="btn btn-success">Update</a> <a href="{% url 'delete_post' post.id %}" class="btn btn-danger ms-3">Delete</a></span>
     {% endif %}
   </div>
 
+  <h3>Comments</h3>
+
+  <form class="card p-3 bg-primary border-primary rounded" method="post">
+    {% csrf_token %}
+    <div class="mb-3 mt-3">
+        <label class="form-label h3">{{form.comment.label}}</label>
+        {{form.comment}}
+        <button type="submit" class="btn btn-dark mt-3">Comment</button>
+    </div>
+  </form>
+
+  {% for comment in post.comments.all %}
+  <div class="card text-white bg-primary mb-3 mt-3">
+    <div class="card-header">{{comment.user_id.username}}</div>
+    <div class="card-body">
+      <p class="card-text">{{comment.comment}}</p>
+    </div>
+  </div>
+  {% endfor %}
 
 {% endblock content %}
+
+{% block scripts %}
+  <script type="text/javascript">
+    document.querySelectorAll('textarea').forEach(textarea => textarea.classList.add('form-control'))
+  </script>
+{% endblock scripts %}
