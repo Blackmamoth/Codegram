@@ -58,7 +58,7 @@
     <h3 class="mb-3 mt-3">Comments</h3>
     {% for comment in post.comments.all %}
     <div class="d-flex justify-content-center py-2">
-          <div class="second py-2 px-2"> <span class="text1">User: {{comment.user_id.username}}</span>
+          <div class="second py-2 px-2"> <span class="text1">User: {{comment.user.username}}</span>
               <div class="d-flex justify-content-between py-1 pt-2">
                   <div><span class="text2 text-dark">Comment: {{comment.comment}}</span></div>
               </div>
