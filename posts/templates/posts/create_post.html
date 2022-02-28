@@ -1,0 +1,65 @@
+{% extends './base.html' %}
+
+{% block content %}
+  <h1>Create Post</h1>
+  {% if form.non_field_errors %}
+        <div class="alert alert-info" role="alert">
+          {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+          {% endfor %}
+        </div>
+  {% endif %}
+  <form class="card p-3 border-primary rounded bg-primary mt-5" method="post">
+    {% csrf_token %}
+    <div class="mb-3 mt-3">
+                <label class="form-label h3 ">{{form.title.label}}</label>
+                {{form.title}}
+                {% if form.code.errors %}
+                    <div class="text-danger">
+                        {% for error in form.code.errors %}
+                            {{error}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label class="form-label h3 ">{{form.code.label}}</label>
+                {{form.code}}
+                {% if form.code.errors %}
+                    <div class="text-danger">
+                        {% for error in form.code.errors %}
+                            {{error}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label class="form-label h3 ">{{form.programming_language.label}}</label>
+                {{form.programming_language}}
+                {% if form.programming_language.errors %}
+                    <div class="text-danger">
+                        {% for error in form.programming_language.errors %}
+                            {{error}}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+    <div class="mb-3 mt-3">
+        <button type="submit" class="btn btn-outline-dark btn-lg">Create</button>
+    </div>
+  </form>
+{% endblock content %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+  document.querySelectorAll('input').forEach(input => {
+    input.classList.add('form-control')
+  })
+  document.querySelector('textarea').classList.add('form-control')
+</script>
+
+{% endblock scripts %}
