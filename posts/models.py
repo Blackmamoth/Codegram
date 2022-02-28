@@ -16,9 +16,9 @@ class Post(models.Model):
         return f'{self.title[:15]} in {self.programming_language}'
 
 class Comment(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    post_id = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    post = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)
     comment = models.TextField(null=False)
 
     def __str__(self):
-        return f'{self.comment[:10]} - {self.user_id} - {self.post_id}'
+        return f'{self.comment[:10]} - {self.user} - {self.post}'
