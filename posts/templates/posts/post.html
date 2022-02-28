@@ -1,5 +1,30 @@
 {% extends './base.html' %}
 
+
+{% block css %}
+  <style media="screen">
+    .second {
+    width: 350px;
+    background-color: white;
+    border-radius: 4px;
+    /* box-shadow: 10px 10px 5px #aaaaaa */
+    }
+
+    .text1 {
+     font-size: 13px;
+     font-weight: 500;
+     color: #56575b
+    }
+
+    .text2 {
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 6px;
+    color: #56575b
+    }
+  </style>
+{% endblock  %}
+
 {% block content %}
   <h1>{{post.title}}</h1>
 
@@ -16,7 +41,7 @@
     {% endif %}
   </div>
 
-  <h3>Comments</h3>
+  <h3 class="mt-3 mb-3">Add Comments</h3>
 
   <form class="card p-3 bg-primary border-primary rounded" method="post">
     {% csrf_token %}
@@ -27,19 +52,27 @@
     </div>
   </form>
 
-  {% for comment in post.comments.all %}
-  <div class="card text-white bg-primary mb-3 mt-3">
-    <div class="card-header">{{comment.user_id.username}}</div>
-    <div class="card-body">
-      <p class="card-text">{{comment.comment}}</p>
-    </div>
-  </div>
-  {% endfor %}
+
+
+  {% if post.comments.count > 0 %}
+    <h3 class="mb-3 mt-3">Comments</h3>
+    {% for comment in post.comments.all %}
+    <div class="d-flex justify-content-center py-2">
+          <div class="second py-2 px-2"> <span class="text1">User: {{comment.user_id.username}}</span>
+              <div class="d-flex justify-content-between py-1 pt-2">
+                  <div><span class="text2 text-dark">Comment: {{comment.comment}}</span></div>
+              </div>
+          </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <h3 class="mb-3 mt-3">No Comments</h3>
+  {% endif %}
 
 {% endblock content %}
 
 {% block scripts %}
   <script type="text/javascript">
-    document.querySelectorAll('textarea').forEach(textarea => textarea.classList.add('form-control'))
+    document.querySelector('textarea').classList.add('form-control')
   </script>
 {% endblock scripts %}
