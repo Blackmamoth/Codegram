@@ -10,7 +10,7 @@ class Post(models.Model):
     programming_language = models.CharField(max_length=20, null=False)
     date_posted = models.DateTimeField(default=datetime.now, null=False)
     programmer = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
-    comments = models.ManyToManyField('Comment', blank=True)
+    comments = models.ManyToManyField('Comment', blank=True, related_name='post_comments')
 
     def __str__(self):
         return f'{self.title[:15]} in {self.programming_language}'
@@ -21,4 +21,4 @@ class Comment(models.Model):
     comment = models.TextField(null=False)
 
     def __str__(self):
-        return f'{self.comment[:10]} - {self.user} - {self.post}'
+        return f'{self.comment[:10]} - {self.user} - {self.post_}'

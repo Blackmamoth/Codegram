@@ -24,14 +24,14 @@ def register(request):
     return render(request, 'posts/register.html', {'form': form, 'title': 'Register'})
 
 def post(request, id):
-    post = get_object_or_404(Post, id=id)
+    post_ = get_object_or_404(Post, id=id)
     form = CommentForm()
     if request.method == 'POST':
         if request.user.is_authenticated:
             form = CommentForm(request.POST)
             if form.is_valid():
                 comment_text = form.cleaned_data.get('comment')
-                comment = Comment(user=request.user, post=post, comment=comment_text)
+                comment = Comment(user=request.user, post=post_, comment=comment_text)
                 comment.save()
                 post.comments.add(comment)
                 return redirect('post', id)
@@ -79,7 +79,3 @@ def delete_post(request, id):
         return redirect('home')
     return render(request, 'posts/delete_post.html', {'post': post})
 
-# @login_required(login_url='login')
-# def account(request):
-#     posts = request.user.post_save.all()
-#     return render(request, '')
