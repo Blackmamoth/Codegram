@@ -21,4 +21,4 @@ class Comment(models.Model):
     comment = models.TextField(null=False)
 
     def __str__(self):
-        return f'{self.comment[:10]} - {self.user} - {self.post_}'
+        return f'{self.comment[:10]} - {self.user} - {self.post}'
