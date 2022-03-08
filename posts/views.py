@@ -33,11 +33,11 @@ def post(request, id):
                 comment_text = form.cleaned_data.get('comment')
                 comment = Comment(user=request.user, post=post_, comment=comment_text)
                 comment.save()
-                post.comments.add(comment)
+                post_.comments.add(comment)
                 return redirect('post', id)
         else:
             messages.info(request, 'You need to login to comment on this post')
-    return render(request, 'posts/post.html', {'post': post, 'form': form})
+    return render(request, 'posts/post.html', {'post': post_, 'form': form})
 
 @login_required(login_url='login')
 def create_post(request):
@@ -78,4 +78,3 @@ def delete_post(request, id):
         messages.success(request, 'Post deleted')
         return redirect('home')
     return render(request, 'posts/delete_post.html', {'post': post})
-
